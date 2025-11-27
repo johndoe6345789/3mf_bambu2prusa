@@ -2,7 +2,7 @@
 
 import pytest
 
-from bambu_to_prusa.cloud_storage import detect_cloud_storage_root
+from bambu_to_prusa.cloud_storage import CLOUD_ROOT_CANDIDATES, detect_cloud_storage_root
 
 
 @pytest.fixture(autouse=True)
@@ -33,6 +33,17 @@ def test_falls_back_to_icloud_location(tmp_path, monkeypatch):
     monkeypatch.setenv("USERPROFILE", str(home))
 
     assert detect_cloud_storage_root() == cloud_root
+
+
+def test_favors_first_known_candidate(tmp_path):
+    home = tmp_path / "home"
+    home.mkdir()
+    first = home / CLOUD_ROOT_CANDIDATES[0]
+    second = home / CLOUD_ROOT_CANDIDATES[1]
+    first.mkdir()
+    second.mkdir()
+
+    assert detect_cloud_storage_root(home=home) == first
 
 
 def test_returns_none_when_no_candidates_exist(tmp_path, monkeypatch):

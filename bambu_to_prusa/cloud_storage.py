@@ -3,7 +3,15 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Optional
+
+# Common cloud storage root folder names. The order reflects typical install precedence.
+CLOUD_ROOT_CANDIDATES = (
+    "Dropbox",
+    "OneDrive",
+    "Google Drive",
+    "iCloud Drive",
+)
 
 
 def _existing_path(candidates: Iterable[Path]) -> Path | None:
@@ -14,8 +22,10 @@ def _existing_path(candidates: Iterable[Path]) -> Path | None:
     return None
 
 
-def detect_cloud_storage_root() -> Path | None:
+def detect_cloud_storage_root(home: Optional[Path] = None) -> Path | None:
     """Return a cloud storage directory if common options are found."""
+
+    base_home = home or Path.home()
 
     env_candidates = [
         Path(os.environ[var])
@@ -23,13 +33,13 @@ def detect_cloud_storage_root() -> Path | None:
         if os.environ.get(var)
     ]
 
-    home = Path.home()
-    onedrive_globs = home.glob("OneDrive*")
+    fallback_candidates = [base_home / name for name in CLOUD_ROOT_CANDIDATES]
+    onedrive_globs = list(base_home.glob("OneDrive*"))
 
     icloud_candidates = [
-        home / "Library" / "Mobile Documents" / "com~apple~CloudDocs",
-        home / "Library" / "CloudStorage" / "iCloud Drive",
-        home / "iCloudDrive",
+        base_home / "Library" / "Mobile Documents" / "com~apple~CloudDocs",
+        base_home / "Library" / "CloudStorage" / "iCloud Drive",
+        base_home / "iCloudDrive",
     ]
 
-    return _existing_path([*env_candidates, *onedrive_globs, *icloud_candidates])
+    return _existing_path([*env_candidates, *fallback_candidates, *onedrive_globs, *icloud_candidates])

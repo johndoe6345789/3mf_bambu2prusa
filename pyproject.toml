@@ -25,4 +25,8 @@ packages = { find = {} }
 py-modules = ["bambu_to_prusa_gui", "bambu_to_prusa_xml"]
 
 [tool.setuptools.package-data]
-bambu_to_prusa = ["data/3mf_template/**/*", "data/3mf_template/*"]
+bambu_to_prusa = [
+    "data/3mf_template/**/*",
+    "data/3mf_template/*",
+    "assets/*.svg",
+]
