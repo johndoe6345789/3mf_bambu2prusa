@@ -1,0 +1,14 @@
+<svg width="480" height="150" viewBox="0 0 480 150" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="480" height="150" rx="16" fill="#191c22" />
+  <rect x="8" y="8" width="464" height="134" rx="14" fill="#1f232c" stroke="#2b3140" stroke-width="2" />
+  <rect x="18" y="20" width="444" height="114" rx="12" fill="#232837" />
+  <circle cx="86" cy="77" r="36" fill="#5865f2" />
+  <circle cx="86" cy="77" r="22" fill="#7da4ff" />
+  <polygon points="130,77 210,38 210,116" fill="#66c0f4" />
+  <polygon points="170,77 232,52 232,102" fill="#0ea5e9" />
+  <line x1="252" y1="46" x2="252" y2="110" stroke="#3ce5b8" stroke-width="6" />
+  <line x1="272" y1="46" x2="272" y2="110" stroke="#4de2ff" stroke-width="6" />
+  <polygon points="292,78 322,58 322,98" fill="#3ce5b8" />
+  <text x="340" y="78" font-size="22" font-family="Segoe UI" font-weight="bold" fill="#e9eef7">Bambu</text>
+  <text x="340" y="110" font-size="18" font-family="Segoe UI" fill="#a6b3c6">to Prusa</text>
+</svg>
