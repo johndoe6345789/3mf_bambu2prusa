@@ -8,7 +8,7 @@ def test_repository_has_no_merge_conflicts():
     repo_root = Path(__file__).resolve().parents[1]
     tracked_files = subprocess.check_output(["git", "ls-files"], cwd=repo_root, text=True).splitlines()
 
-    conflict_markers = (b"<<<<<<<", b"=======", b">>>>>>>")
+    conflict_markers = tuple(marker.encode() for marker in ("<" * 7, "=" * 7, ">" * 7))
     offenders = []
 
     for relative_path in tracked_files:
